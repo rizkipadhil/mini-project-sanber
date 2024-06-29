@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "10010:8080"
+      - "10020:8080"
     depends_on:
       - postgresdb
     environment:
@@ -19,7 +19,7 @@ services:
   nginx:
     image: nginx:latest
     ports:
-      - "20010:80"
+      - "20020:80"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
     depends_on:
