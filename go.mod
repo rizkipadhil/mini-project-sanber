@@ -6,6 +6,7 @@ toolchain go1.22.2
 
 require (
 	github.com/gin-gonic/gin v1.10.0
+	github.com/gobuffalo/packr/v2 v2.8.3
 	github.com/joho/godotenv v1.5.1
 	github.com/lib/pq v1.10.9
 	github.com/rubenv/sql-migrate v1.6.1
