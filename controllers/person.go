@@ -3,23 +3,23 @@ package controllers
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"mini-project-sanbercode/database"
-	"mini-project-sanbercode/repository"
-	"mini-project-sanbercode/structs"
+	"golang-mini-project/database"
+	"golang-mini-project/repository"
+	"golang-mini-project/structs"
 	"strconv"
 )
 
 func GetAllPerson(c *gin.Context) {
-	var result gin.H
-
+	var (
+		result gin.H
+	)
 	persons, err := repository.GetAllPerson(database.DbConnection)
-
 	if err != nil {
-		result = gin.H{
-			"result": err,
+		result = gin.H {
+			"result" : err,
 		}
 	} else {
-		result = gin.H{
+		result = gin.H {
 			"result": persons,
 		}
 	}
@@ -41,7 +41,7 @@ func InsertPerson(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"result": "Success Insert Person",
+		"result" : "Success Insert Person",
 	})
 }
 
@@ -57,12 +57,13 @@ func UpdatePerson(c *gin.Context) {
 	person.ID = int64(id)
 
 	err = repository.UpdatePerson(database.DbConnection, person)
+
 	if err != nil {
 		panic(err)
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"result": "Success Update Person",
+		"result" : "Success Update Person",
 	})
 }
 
@@ -78,6 +79,6 @@ func DeletePerson(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"result": "Success Delete Person",
+		"result" : "Success Delete Person",
 	})
 }

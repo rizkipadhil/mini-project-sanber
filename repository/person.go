@@ -2,29 +2,38 @@ package repository
 
 import (
 	"database/sql"
-	"mini-project-sanbercode/structs"
+	"golang-mini-project/structs"
 )
 
-func GetAllPerson(db *sql.DB) (err error, results []structs.Person) {
-	sql := "SELECT * FROM person"
-
+func GetAllPerson(db *sql.DB) ([]structs.Person, error) {
+	sql := "SELECT * FROM PERSON"
 	rows, err := db.Query(sql)
 	if err != nil {
-		return err, nil
+		return nil, err
 	}
 	defer rows.Close()
 
+	var results []structs.Person 
+
 	for rows.Next() {
-		var person = structs.Person{}
-		err = rows.Scan(&person.ID, &person.FirstName, &person.LastName)
+		var person structs.Person
+
+		err := rows.Scan(&person.ID, &person.FirstName, &person.LastName)
 		if err != nil {
-			return err, nil
+			return nil, err 
 		}
+
 		results = append(results, person)
 	}
 
-	return nil, results
+	err = rows.Err() 
+	if err != nil {
+		return nil, err 
+	}
+
+	return results, nil
 }
+
 
 func InsertPerson(db *sql.DB, person structs.Person) (err error) {
 	sql := "INSERT INTO person (id, first_name, last_name) VALUES ($1, $2, $3)"
@@ -32,6 +41,7 @@ func InsertPerson(db *sql.DB, person structs.Person) (err error) {
 	errs := db.QueryRow(sql, person.ID, person.FirstName, person.LastName)
 
 	return errs.Err()
+
 }
 
 func UpdatePerson(db *sql.DB, person structs.Person) (err error) {
@@ -40,6 +50,7 @@ func UpdatePerson(db *sql.DB, person structs.Person) (err error) {
 	errs := db.QueryRow(sql, person.FirstName, person.LastName, person.ID)
 
 	return errs.Err()
+
 }
 
 func DeletePerson(db *sql.DB, person structs.Person) (err error) {
@@ -48,4 +59,5 @@ func DeletePerson(db *sql.DB, person structs.Person) (err error) {
 	errs := db.QueryRow(sql, person.ID)
 
 	return errs.Err()
+
 }
