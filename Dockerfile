@@ -1,23 +1,11 @@
-# Gunakan image golang versi 1.20 sebagai base image
-FROM golang:1.20
-
-# Set environment variable
-ENV GO111MODULE=on
+# Gunakan image base yang lebih kecil karena kita hanya perlu menjalankan binary
+FROM golang:1.20-alpine
 
 # Buat direktori kerja dalam container
 WORKDIR /app
 
-# Copy go.mod dan go.sum ke dalam container
-COPY go.mod go.sum ./
-
-# Download semua dependensi Go
-RUN go mod download
-
-# Copy semua file dari proyek ke dalam container
-COPY . .
-
-# Build aplikasi Go
-RUN go build -o main .
+# Copy file hasil build ke dalam container
+COPY main .
 
 # Eksekusi aplikasi ketika container berjalan
 CMD ["./main"]
