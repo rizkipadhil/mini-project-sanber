@@ -5,6 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: goapp
     ports:
       - "10020:8080"
     depends_on:
@@ -17,6 +18,7 @@ services:
       - DB_NAME=${DB_NAME}
 
   nginx:
+    container_name: nginx
     image: nginx:latest
     ports:
       - "20020:80"
@@ -26,6 +28,7 @@ services:
       - goapp
 
   postgresdb:
+    container_name: postgresdb
     image: postgres:latest
     environment:
       POSTGRES_USER: ${DB_USER}
