@@ -7,8 +7,8 @@ import (
     "github.com/joho/godotenv"
     "log"
     "os"
-    "practice/controllers"
-    "practice/database"
+    "mini-project-sanbercode/controllers"
+    "mini-project-sanbercode/database"
 
     _ "github.com/lib/pq"
 )
